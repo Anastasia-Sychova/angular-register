@@ -11,6 +11,16 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "paths": {
+      "@components/*": ["app/components/*"],
+      "@interfaces/*": ["app/interfaces/*"],
+      "@interceptors/*": ["app/interceptors/*"],
+      "@services/*": ["app/services/*"],
+      "@mock/*": ["mock/*"]
+    },
     "lib": [
       "es2018",
       "dom"

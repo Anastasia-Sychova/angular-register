@@ -1,0 +1,32 @@
+<div>
+  <div class="app-card">
+    <form [formGroup]="registerForm" class="card-content">
+      <div *ngIf="!isAuthorized" class="fields-box">
+        <mat-form-field class="two-column-field">
+          <input matInput formControlName="first_name" placeholder="First name" required>
+        </mat-form-field>
+        <mat-form-field class="two-column-field">
+          <input matInput formControlName="last_name" placeholder="Last name" required>
+          <mat-icon class="input-icon">work</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="two-column-field">
+          <input matInput formControlName="email" placeholder="Primary contact email (login)" required>
+          <mat-icon class="input-icon">mail</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="two-column-field">
+          <input matInput formControlName="website" placeholder="Your website page" required>
+          <mat-icon class="input-icon">public</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="two-column-field">
+          <input matInput type="password" formControlName="password" placeholder="Password" required>
+          <mat-icon class="input-icon">lock</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="two-column-field">
+          <input matInput type="password" formControlName="confirm_password" placeholder="Password re-enter" required>
+          <mat-icon class="input-icon">lock</mat-icon>
+        </mat-form-field>
+        <button (click)="registerUser()" mat-button class="green-button full-width align-center affiliate-row">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
