@@ -1,13 +1,14 @@
 <div>
   <div class="app-card">
-    <form [formGroup]="registerForm" class="card-content">
-      <div *ngIf="!isAuthorized" class="fields-box">
-        <mat-form-field class="two-column-field">
+    <div *ngIf="!isAuthorized" class="fields-box">
+      <form [formGroup]="registerForm" class="card-content">
+        <mat-form-field class="two-column-field first_row">
           <input matInput formControlName="first_name" placeholder="First name" required>
+          <mat-icon class="input-icon">assignment</mat-icon>
         </mat-form-field>
-        <mat-form-field class="two-column-field">
+        <mat-form-field class="two-column-field first_row">
           <input matInput formControlName="last_name" placeholder="Last name" required>
-          <mat-icon class="input-icon">work</mat-icon>
+          <mat-icon class="input-icon">assignment</mat-icon>
         </mat-form-field>
         <mat-form-field class="two-column-field">
           <input matInput formControlName="email" placeholder="Primary contact email (login)" required>
@@ -25,8 +26,15 @@
           <input matInput type="password" formControlName="confirm_password" placeholder="Password re-enter" required>
           <mat-icon class="input-icon">lock</mat-icon>
         </mat-form-field>
-        <button (click)="registerUser()" mat-button class="green-button full-width align-center affiliate-row">Register</button>
+        <button (click)="registerUser()" mat-button class="green-button full-width align-center">Register</button>
+      </form>
+    </div>
+    <div *ngIf="isAuthorized" class="fields-box">
+      <div class="two-column-field">
+        <h1 class="fields-box full-width align-center">Welcome!</h1>
+        <button (click)="back()" mat-button class="green-button full-width align-center">Back</button>
       </div>
-    </form>
+    </div>
+
   </div>
 </div>

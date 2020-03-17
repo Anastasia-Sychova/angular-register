@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-register"
+    }
+  },
+  "defaultProject": "angular-register",
+  "cli": {
+    "analytics": false
+  }
 }

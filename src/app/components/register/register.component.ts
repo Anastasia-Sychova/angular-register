@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from '@services/message.service';
+import { Register } from '@interfaces/register.interface';
+import { Status } from '@interfaces/status.interface';
+import {AuthService} from '@services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +12,7 @@ import { MessageService } from '@services/message.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  isAuthorized = false;
+  isAuthorized = true;
   nameValidator = [
     Validators.required,
     Validators.minLength(1)
@@ -29,6 +32,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private authService: AuthService,
     private messageService: MessageService,
   ) {}
 
@@ -51,8 +55,8 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     const controls = this.registerForm.controls;
+    let message = '';
     if (this.registerForm.invalid) {
-      let message = '';
       switch (true) {
         case controls.first_name.errors !== null:
           message += controls.first_name.errors.required ? 'First name field required.\n' : '';
@@ -70,11 +74,36 @@ export class RegisterComponent implements OnInit {
           message += controls.confirm_password.errors.required ? 'Password re-enter field required.\n' : '';
           message += controls.confirm_password.errors.pattern ? 'Confirm password is too short.\n' : '';
       }
-      if (message) {
-        this.messageService.open(message, 'CLOSE');
-      }
+    }
+    const password = this.registerForm.get('password').value;
+    const confirmPassword = this.registerForm.get('confirm_password').value;
+    message += password !== confirmPassword ? 'Passwords must be match.' : '';
+    if (message) {
+      this.messageService.open(message, 'CLOSE');
+
       return;
     }
-  }
 
+    const formValues = this.registerForm.getRawValue();
+    const registerBody = {
+      first_name: formValues.first_name,
+      last_name: formValues.last_name,
+      website: formValues.website,
+      email: formValues.email,
+      password: formValues.password,
+    } as Register;
+    this.authService
+      .register(registerBody)
+      .subscribe((response: Status) => {
+        console.log(response);
+        this.authService.setStatus(response);
+        this.isAuthorized = this.authService.isAuthorized();
+        this.messageService.open('Your account has been created!', 'CLOSE');
+      }, (error) => {
+        this.messageService.open(error.error, 'CLOSE');
+      });
+  }
+  back() {
+    window.location.href = 'https://google.com';
+  }
 }

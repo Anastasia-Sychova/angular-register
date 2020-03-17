@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -16,9 +16,9 @@
     ],
     "paths": {
       "@components/*": ["app/components/*"],
+      "@services/*": ["app/services/*"],
       "@interfaces/*": ["app/interfaces/*"],
       "@interceptors/*": ["app/interceptors/*"],
-      "@services/*": ["app/services/*"],
       "@mock/*": ["mock/*"]
     },
     "lib": [
